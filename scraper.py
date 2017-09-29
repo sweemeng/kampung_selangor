@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import scraperwiki
+import re
 
 r = requests.get("http://www2.selangor.gov.my/gombak.php/pages/view/20?mid=290")
 data = r.content
@@ -11,7 +12,7 @@ td = content.find("table").find_all("td")
 for i in td:
     temp = i.find(text=re.compile("^Nama Kampung"))
     if temp:
-        kampung = temp.split(":")[1].replace("\xa0", "")
+        kampung = temp.split(":")[1]
         link = "http://www2.selangor.gov.my/{url}".format(url=i.find("a")["href"])
         scraperwiki.sqlite.save(unique_keys=['name'], data={"name": kampung, "link": link})
 
