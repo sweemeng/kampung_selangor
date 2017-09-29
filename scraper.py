@@ -2,7 +2,8 @@ import requests
 from bs4 import Beautiful
 import scraperwiki
 
-r = requests.get("http://www2.selangor.gov.my/gombak.php/pages/view/20?mid=290")data = r.content
+r = requests.get("http://www2.selangor.gov.my/gombak.php/pages/view/20?mid=290")
+data = r.content
 soup = BeautifulSoup(data, "html.parser")
 content=soup.find(id="container_content")
 td = content.find("table").find_all("td")
